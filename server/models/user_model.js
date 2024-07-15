@@ -2,10 +2,7 @@ import { Schema, model } from "mongoose";
 
 const userSchema = new Schema(
   {
-    name: {
-      type: String,
-      required: [true, "Name is required"],
-    },
+    name: { type: String, required: [true, "Name is required"] },
     email: {
       type: String,
       required: [true, "Email is required"],
@@ -18,19 +15,10 @@ const userSchema = new Schema(
       required: [true, "Password is required"],
       minlength: [8, "Password must be at least 8 characters long"],
     },
-    gender: {
-      type: String,
-      enum: ["male", "female", "other"],
-      default: "other",
-    },
-    dob: {
-      type: Date,
-      default: null,
-    },
-    about: {
-      type: String,
-      default: null,
-    },
+    roles: { type: Array, default: ["user"] },
+    gender: { type: String, enum: ["male", "female", null], default: null },
+    dob: { type: Date, default: null },
+    about: { type: String, default: null },
   },
   { timestamps: true }
 );

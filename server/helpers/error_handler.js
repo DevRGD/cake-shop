@@ -1,10 +1,10 @@
-import log_rror from "./error_logger.js";
+import logError from "./error_logger.js";
 import HttpStatus from "http-status-codes";
 
-export default function error_handler(error, req, res, next) {
+export default function errorHandler(error, req, res, next) {
   let message = "Internal server error";
 
-  log_rror(error);
+  logError(error);
 
   if (error.name === "ValidationError") {
     message = "Validation error";

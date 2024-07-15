@@ -6,7 +6,7 @@ const getCurrentMonthYear = () => {
   return `${now.getFullYear()}_${(now.getMonth() + 1).toString().padStart(2, "0")}`;
 };
 
-export default function log_rror(error) {
+export default function logError(error) {
   try {
     const logDirectory = path.resolve(process.cwd(), "./logs");
 

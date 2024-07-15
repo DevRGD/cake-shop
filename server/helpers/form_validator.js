@@ -1,6 +1,6 @@
 import HttpStatus from "http-status-codes";
 
-export default function form_validator(type, data) {
+export default function formValidator(type, data) {
   let keys = [];
   let errors = [];
 
@@ -8,18 +8,20 @@ export default function form_validator(type, data) {
   if (type === "signup") keys = ["name", "email", "password", "gender", "dob"];
 
   keys.forEach((key) => {
-    if (!data[key]) errors.push({ message: `${key} is required.`, status: HttpStatus.BAD_REQUEST });
+    if (!data[key]) {
+      errors.push({ status: HttpStatus.BAD_REQUEST, message: `${convertToReadableName(key)} is required.` });
+    }
   });
 
   if (data.email && !isValidEmail(data.email)) {
-    errors.push({ message: "Invalid email format.", status: HttpStatus.BAD_REQUEST });
+    errors.push({ status: HttpStatus.BAD_REQUEST, message: "Invalid email format." });
   }
 
   if (data.password && !isValidPassword(data.password)) {
     errors.push({
+      status: HttpStatus.NOT_ACCEPTABLE,
       message:
         "Password must contain minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character",
-      status: HttpStatus.BAD_REQUEST,
     });
   }
 
@@ -33,5 +35,18 @@ function isValidEmail(email) {
 }
 
 function isValidPassword(password) {
-  return /^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,}$/.test(password);
+  return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password);
+}
+
+function convertToReadableName(key) {
+  let words = key.split("_");
+  let capitalizedString = words
+    .map((word) => {
+      if (word.length > 0) {
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      } else return "";
+    })
+    .join(" ");
+
+  return capitalizedString;
 }
