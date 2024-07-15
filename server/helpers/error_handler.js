@@ -18,7 +18,7 @@ export default function errorHandler(error, req, res, next) {
   }
 
   if (error.code === 11000 && error.keyValue.email) {
-    message = `Email '${error.keyValue.email}' is already registered.`;
+    message = `Email '${error.keyValue.email}' is already registered`;
     return res.status(HttpStatus.BAD_REQUEST).json({ status: HttpStatus.BAD_REQUEST, message });
   }
 

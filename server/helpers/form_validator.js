@@ -9,12 +9,12 @@ export default function formValidator(type, data) {
 
   keys.forEach((key) => {
     if (!data[key]) {
-      errors.push({ status: HttpStatus.BAD_REQUEST, message: `${convertToReadableName(key)} is required.` });
+      errors.push({ status: HttpStatus.BAD_REQUEST, message: `${convertToReadableName(key)} is required` });
     }
   });
 
   if (data.email && !isValidEmail(data.email)) {
-    errors.push({ status: HttpStatus.BAD_REQUEST, message: "Invalid email format." });
+    errors.push({ status: HttpStatus.BAD_REQUEST, message: "Invalid email format" });
   }
 
   if (data.password && !isValidPassword(data.password)) {

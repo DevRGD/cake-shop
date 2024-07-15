@@ -9,11 +9,11 @@ export default function permissions(req, res, next) {
   if (token == null) {
     return res
       .status(HttpStatus.UNAUTHORIZED)
-      .json({ status: HttpStatus.UNAUTHORIZED, message: "No authorization token." });
+      .json({ status: HttpStatus.UNAUTHORIZED, message: "No authorization token" });
   }
 
   jwt.verify(token, process.env.ACCESS_SECRET, async (err, user) => {
-    if (err) return res.status(HttpStatus.FORBIDDEN).json({ status: HttpStatus.FORBIDDEN, message: "Unauthorized." });
+    if (err) return res.status(HttpStatus.FORBIDDEN).json({ status: HttpStatus.FORBIDDEN, message: "Unauthorized" });
     const url = req.originalUrl.replaceAll("/", "").toLowerCase();
     const permission = await Permission.findOne({ url });
     if (!permission) {

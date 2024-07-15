@@ -73,13 +73,11 @@ export const refreshToken = (req, res) => {
   try {
     const token = req.headers?.cookie?.split("=")[1];
     if (!token) {
-      return res
-        .status(HttpStatus.FORBIDDEN)
-        .json({ status: HttpStatus.FORBIDDEN, message: "No authorization token." });
+      return res.status(HttpStatus.FORBIDDEN).json({ status: HttpStatus.FORBIDDEN, message: "No refresh token" });
     }
     jwt.verify(token, process.env.REFRESH_SECRET, async (err, user) => {
       if (err)
-        return res.status(HttpStatus.UNAUTHORIZED).json({ status: HttpStatus.UNAUTHORIZED, message: "Invalid token." });
+        return res.status(HttpStatus.UNAUTHORIZED).json({ status: HttpStatus.UNAUTHORIZED, message: "Invalid token" });
       const access_token = generate_access_token(user);
       const refresh_token = generate_refresh_token(user);
 
